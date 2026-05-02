@@ -15,28 +15,13 @@
             overflow-x: hidden;
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #111; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
-
-        /* Navigation Sidebar Text Rotation */
+        /* Desktop Text Rotation */
         .vertical-text {
             writing-mode: vertical-rl;
             transform: rotate(180deg);
         }
 
-        /* Hover Overlay Logic */
-        .portfolio-item .overlay {
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            background: rgba(0, 0, 0, 0.85);
-        }
-        .portfolio-item:hover .overlay {
-            opacity: 1;
-        }
-
-        /* View Switching Transitions */
+        /* Transitions */
         .view-section {
             transition: opacity 0.5s ease, transform 0.5s ease;
             position: absolute;
@@ -52,7 +37,6 @@
             transform: translateY(10px);
         }
 
-        /* Full Screen Menu Transition */
         #main-menu {
             transition: all 0.6s cubic-bezier(0.85, 0, 0.15, 1);
             opacity: 0;
@@ -65,232 +49,202 @@
             pointer-events: auto;
         }
 
-        /* Grid specific sizing */
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        @media (max-width: 768px) {
-            .portfolio-grid {
-                grid-template-columns: 1fr;
+        /* Desktop Hover Overlays (Kept original behavior) */
+        @media (min-width: 768px) {
+            .portfolio-item .desktop-overlay {
+                opacity: 0;
+                transition: opacity 0.4s ease;
+                background: rgba(0, 0, 0, 0.8);
+            }
+            .portfolio-item:hover .desktop-overlay {
+                opacity: 1;
             }
         }
 
-        /* Menu Link Hover Effect */
-        .menu-link {
-            position: relative;
-            display: inline-block;
-        }
-        .menu-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 1px;
-            bottom: -4px;
-            left: 50%;
-            background-color: white;
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-        .menu-link:hover::after {
-            width: 100%;
-        }
-
-        /* Video Detail Page Styles */
-        .detail-video-container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
+        /* Mobile specific S-logo style */
+        .s-logo-circle {
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: serif;
+            font-style: italic;
         }
     </style>
 </head>
 <body class="bg-black">
 
-    <!-- UNIVERSAL HEADER -->
-    <header class="fixed top-0 left-0 w-full z-40 p-6 flex justify-between items-start pointer-events-none">
-        <!-- Left Title (Hidden on detail page, replaced by back button) -->
-        <div id="header-left" class="text-[10px] tracking-[0.4em] uppercase opacity-90 font-light pointer-events-auto text-white transition-opacity duration-300">
-            Production Designers
-        </div>
-        
-        <!-- Center Logo -->
-        <div class="absolute left-1/2 -translate-x-1/2 top-6 text-center pointer-events-auto cursor-pointer" onclick="showHome()">
-            <h1 class="text-3xl tracking-[0.6em] font-light uppercase text-white mb-1">SESLER</h1>
-            <span id="header-subtitle" class="text-xl tracking-[0.3em] font-extralight text-white opacity-90">Daria Savic</span>
-        </div>
-        
-        <!-- Right Menu Toggle -->
-        <button id="menu-toggle" class="group flex flex-col space-y-2 focus:outline-none cursor-pointer pointer-events-auto">
-            <div class="w-10 h-[1px] bg-white transition-all group-hover:w-7"></div>
-            <div class="w-10 h-[1px] bg-white"></div>
-            <div class="w-10 h-[1px] bg-white transition-all group-hover:w-7"></div>
-        </button>
-    </header>
+<!-- DESKTOP HEADER (Original Design) -->
+<header class="fixed top-0 left-0 w-full z-40 p-6 hidden md:flex justify-between items-start pointer-events-none">
+    <div class="text-[10px] tracking-[0.4em] uppercase opacity-90 font-light pointer-events-auto text-white">Production Designers</div>
+    <div class="absolute left-1/2 -translate-x-1/2 top-6 text-center pointer-events-auto cursor-pointer" onclick="showHome()">
+        <h1 class="text-3xl tracking-[0.6em] font-light uppercase text-white mb-1">SESLER</h1>
+        <span class="text-xl tracking-[0.3em] font-extralight text-white opacity-90">Daria Savic</span>
+    </div>
+    <button id="menu-toggle-desktop" class="group flex flex-col space-y-2 focus:outline-none cursor-pointer pointer-events-auto">
+        <div class="w-10 h-[1px] bg-white transition-all group-hover:w-7"></div>
+        <div class="w-10 h-[1px] bg-white"></div>
+        <div class="w-10 h-[1px] bg-white transition-all group-hover:w-7"></div>
+    </button>
+</header>
 
-    <!-- FULL SCREEN MENU OVERLAY -->
-    <div id="main-menu" class="fixed inset-0 z-50 bg-[#0a0a0a] flex flex-col items-center justify-center">
-        <button id="menu-close" class="absolute top-10 right-10 text-white hover:rotate-90 transition-transform duration-300 p-4">
-            <svg width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5">
-                <path d="M18 6L6 18M6 6l12 12"></path>
-            </svg>
-        </button>
-        <div class="text-xl tracking-[0.8em] font-light uppercase mb-20 opacity-60">SESLER</div>
-        <nav class="flex flex-col items-center space-y-10">
-            <a href="#" class="menu-link text-4xl md:text-5xl font-light tracking-wide transition-all">Cinematographers</a>
-            <a href="#" class="menu-link text-4xl md:text-5xl font-light tracking-wide transition-all">Production Designers</a>
-            <a href="#" class="menu-link text-4xl md:text-5xl font-light tracking-wide transition-all">Sesler II DPs</a>
-            <a href="#" class="menu-link text-4xl md:text-5xl font-light tracking-wide transition-all">News</a>
-            <a href="#" class="menu-link text-4xl md:text-5xl font-light tracking-wide transition-all">Contact</a>
-        </nav>
-        <div class="mt-20 text-center">
-            <p class="text-[9px] uppercase tracking-[0.4em] opacity-30 mb-4">Follow Us</p>
-            <div class="flex space-x-12 text-[11px] tracking-[0.3em] font-light">
-                <a href="#" class="hover:opacity-50">INSTAGRAM</a>
-                <a href="#" class="hover:opacity-50">FACEBOOK</a>
+<!-- MOBILE HEADER (Upgraded to match Image) -->
+<header class="fixed top-0 left-0 w-full z-40 bg-black px-4 py-4 md:hidden flex justify-between items-center border-b border-white/5">
+    <div class="cursor-pointer" onclick="showHome()">
+        <div class="s-logo-circle w-8 h-8 text-lg font-light">S</div>
+    </div>
+    <div class="text-center">
+        <h1 class="text-lg tracking-[0.2em] font-light uppercase text-white">Daria Savic</h1>
+    </div>
+    <button id="menu-toggle-mobile" class="flex flex-col space-y-1.5 focus:outline-none p-2">
+        <div class="w-7 h-[1px] bg-white"></div>
+        <div class="w-7 h-[1px] bg-white"></div>
+    </button>
+</header>
+
+<!-- MOBILE CATEGORY NAV (Upgraded to match Image) -->
+<nav class="fixed top-[65px] left-0 w-full z-30 bg-black py-4 flex justify-center space-x-8 text-[10px] tracking-[0.3em] uppercase font-light border-b border-white/5 md:hidden">
+    <a href="#" class="border-b border-white pb-1">Commercial</a>
+    <a href="#" class="opacity-50">Film/TV</a>
+    <a href="#" class="opacity-50">CV</a>
+</nav>
+
+<!-- MENU OVERLAY -->
+<div id="main-menu" class="fixed inset-0 z-50 bg-[#0c0c0c] flex flex-col items-center justify-center">
+    <button id="menu-close" class="absolute top-6 right-6 md:top-10 md:right-10 text-white p-4">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+    </button>
+    <div class="absolute top-10 left-1/2 -translate-x-1/2 text-xs tracking-[0.8em] font-light uppercase opacity-60">SESLER</div>
+    <nav class="flex flex-col items-center space-y-8 md:space-y-12">
+        <a href="#" class="text-2xl md:text-5xl font-light tracking-wide hover:opacity-50 transition-opacity">Cinematographers</a>
+        <a href="#" class="text-2xl md:text-5xl font-light tracking-wide hover:opacity-50 transition-opacity">Production Designers</a>
+        <a href="#" class="text-2xl md:text-5xl font-light tracking-wide hover:opacity-50 transition-opacity">Sesler II DPs</a>
+        <a href="#" class="text-2xl md:text-5xl font-light tracking-wide hover:opacity-50 transition-opacity">News</a>
+        <a href="#" class="text-2xl md:text-5xl font-light tracking-wide hover:opacity-50 transition-opacity">Contact</a>
+    </nav>
+    <div class="mt-16 text-center">
+        <p class="text-[8px] uppercase tracking-[0.4em] opacity-30 mb-6">Follow Us</p>
+        <div class="flex space-x-10 text-[10px] tracking-[0.3em] font-light">
+            <a href="#">INSTAGRAM</a>
+            <a href="#">FACEBOOK</a>
+        </div>
+        <div class="mt-12 flex justify-center">
+            <div class="s-logo-circle w-14 h-14 text-2xl font-light border-white/20">S</div>
+        </div>
+    </div>
+</div>
+
+<!-- MAIN HOME VIEW -->
+<section id="view-home" class="view-section pt-[115px] md:pt-0">
+    <!-- Sidebar Navigation (Desktop Original) -->
+    <aside class="fixed left-0 top-0 h-full w-12 hidden md:flex flex-col justify-center items-center z-30 space-y-12 mix-blend-difference">
+        <div class="vertical-text text-[9px] tracking-[0.5em] uppercase font-light opacity-60 hover:opacity-100 cursor-pointer">Commercial</div>
+        <div class="vertical-text text-[9px] tracking-[0.5em] uppercase font-light opacity-60 hover:opacity-100 cursor-pointer">Film/TV</div>
+        <div class="vertical-text text-[9px] tracking-[0.5em] uppercase font-light opacity-60 hover:opacity-100 cursor-pointer">CV</div>
+    </aside>
+
+    <!-- Grid (Responsive) -->
+    <main class="grid grid-cols-1 md:grid-cols-2 w-full">
+        <!-- Item 1 -->
+        <div class="portfolio-item relative cursor-pointer overflow-hidden aspect-video bg-zinc-900"
+             onclick="openDetail('Kids Help Phone', 'Help Means Everything', 'Ernest Desumbila', 'SAUVAGE.TV', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
+            <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover grayscale">
+
+            <!-- Desktop Hover Overlay (Original) -->
+            <div class="desktop-overlay hidden md:flex absolute inset-0 flex-col items-center justify-center text-center p-8">
+                <h3 class="text-2xl font-light tracking-[0.3em] uppercase mb-3">Kids Help Phone</h3>
+                <div class="w-8 h-[1px] bg-white/40 mb-3"></div>
+                <p class="text-xs tracking-[0.2em] font-light opacity-70 uppercase">Commercial</p>
+            </div>
+
+            <!-- Mobile Static Overlay (Upgraded Image Look) -->
+            <div class="md:hidden absolute inset-0 flex flex-col items-center justify-center text-center p-4 bg-black/30">
+                <h3 class="text-4xl font-light tracking-[0.1em] mb-1">Kids Help Phone</h3>
+                <p class="text-sm font-light tracking-[0.1em] opacity-90">Help Means Everything</p>
             </div>
         </div>
-        <div class="mt-12">
-            <div class="w-12 h-12 border border-white/20 rounded-full flex items-center justify-center font-serif text-2xl italic font-thin">S</div>
+
+        <!-- Item 2 -->
+        <div class="portfolio-item relative cursor-pointer overflow-hidden aspect-video bg-zinc-900 border-t border-white/5 md:border-t-0"
+             onclick="openDetail('Canadian Tire', 'We All Play For Canada', 'Marcus Jones', 'Radke Films', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
+            <img src="https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover grayscale">
+
+            <div class="desktop-overlay hidden md:flex absolute inset-0 flex-col items-center justify-center text-center p-8">
+                <h3 class="text-2xl font-light tracking-[0.3em] uppercase mb-3">Canadian Tire</h3>
+                <div class="w-8 h-[1px] bg-white/40 mb-3"></div>
+                <p class="text-xs tracking-[0.2em] font-light opacity-70 uppercase">Commercial</p>
+            </div>
+
+            <div class="md:hidden absolute inset-0 flex flex-col items-center justify-center text-center p-4 bg-black/30">
+                <h3 class="text-4xl font-light tracking-[0.1em] mb-1">Canadian Tire</h3>
+                <p class="text-sm font-light tracking-[0.1em] opacity-90">We All Play For Canada</p>
+            </div>
+        </div>
+    </main>
+</section>
+
+<!-- VIDEO DETAIL VIEW -->
+<section id="view-detail" class="view-section view-hidden flex flex-col items-center justify-center bg-black px-4 md:px-6">
+    <div class="fixed top-0 left-0 w-full p-4 md:p-8 flex justify-between items-center z-50 pointer-events-none">
+        <button onclick="showHome()" class="pointer-events-auto flex items-center space-x-3 text-white hover:opacity-50">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+            <span class="text-[10px] tracking-[0.4em] uppercase font-light">Commercial</span>
+        </button>
+        <div class="hidden md:block absolute left-1/2 -translate-x-1/2 text-xs tracking-[0.8em] font-light uppercase text-white">SESLER</div>
+    </div>
+
+    <div class="w-full max-w-5xl mb-8 md:mb-12">
+        <div class="aspect-video bg-black w-full">
+            <iframe id="detail-frame" class="w-full h-full" src="" frameborder="0" allowfullscreen></iframe>
         </div>
     </div>
 
-    <!-- VIEW 1: HOME GRID -->
-    <section id="view-home" class="view-section pt-32 md:pt-0">
-        <!-- LEFT SIDEBAR -->
-        <aside class="fixed left-0 top-0 h-full w-12 flex flex-col justify-center items-center z-30 space-y-12 mix-blend-difference">
-            <div class="vertical-text text-[9px] tracking-[0.5em] uppercase font-light opacity-60 hover:opacity-100 transition-opacity cursor-pointer">Commercial</div>
-            <div class="vertical-text text-[9px] tracking-[0.5em] uppercase font-light opacity-60 hover:opacity-100 transition-opacity cursor-pointer">Film/TV</div>
-            <div class="vertical-text text-[9px] tracking-[0.5em] uppercase font-light opacity-60 hover:opacity-100 transition-opacity cursor-pointer">CV</div>
-        </aside>
-
-        <main class="portfolio-grid w-full">
-            <!-- Item 1 -->
-            <div class="portfolio-item relative group cursor-pointer overflow-hidden aspect-video bg-zinc-900 border-b border-r border-white/5" 
-                 onclick="openDetail('Kids Help Phone', 'Help Means Everything', 'Ernest Desumbila', 'SAUVAGE.TV', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
-                <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=1200" alt="Work" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000">
-                <div class="overlay absolute inset-0 flex flex-col items-center justify-center text-center p-8">
-                    <h3 class="text-2xl font-light tracking-[0.3em] uppercase mb-3">Kids Help Phone</h3>
-                    <div class="w-8 h-[1px] bg-white/40 mb-3"></div>
-                    <p class="text-xs tracking-[0.2em] font-light opacity-70 uppercase">Commercial • Production Design</p>
-                </div>
-            </div>
-            <!-- Item 2 -->
-            <div class="portfolio-item relative group cursor-pointer overflow-hidden aspect-video bg-zinc-900 border-b border-white/5" 
-                 onclick="openDetail('Winter Red', 'The Frozen Escape', 'Elena Rossi', 'Visions Inc.', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
-                <img src="https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?auto=format&fit=crop&q=80&w=1200" alt="Work" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000">
-                <div class="overlay absolute inset-0 flex flex-col items-center justify-center text-center p-8">
-                    <h3 class="text-2xl font-light tracking-[0.3em] uppercase mb-3">Winter Red</h3>
-                    <div class="w-8 h-[1px] bg-white/40 mb-3"></div>
-                    <p class="text-xs tracking-[0.2em] font-light opacity-70 uppercase">Short Film • Scenic Design</p>
-                </div>
-            </div>
-            <!-- Additional items can go here... -->
-        </main>
-    </section>
-
-    <!-- VIEW 2: VIDEO DETAIL PAGE -->
-    <section id="view-detail" class="view-section view-hidden flex flex-col items-center justify-center bg-[#111] px-6">
-        
-        <!-- Detail Header Overrides -->
-        <div class="fixed top-0 left-0 w-full p-6 flex justify-between items-center z-50 pointer-events-none">
-            <button onclick="showHome()" class="pointer-events-auto flex items-center space-x-3 text-white hover:opacity-50 transition-opacity">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-                    <path d="M18 6L6 18M6 6l12 12"></path>
-                </svg>
-                <span class="text-[10px] tracking-[0.4em] uppercase font-light">Commercial</span>
-            </button>
+    <div class="text-center">
+        <h2 id="detail-title" class="text-2xl md:text-3xl font-light tracking-[0.3em] uppercase mb-2"></h2>
+        <p id="detail-subtitle" class="text-xs md:text-base font-light tracking-[0.2em] opacity-60 uppercase mb-8 md:mb-12"></p>
+        <div class="flex flex-col md:flex-row justify-center items-center gap-y-2 md:gap-x-16 text-[9px] md:text-[11px] tracking-[0.3em] uppercase font-light opacity-70">
+            <p>Director: <span id="detail-director" class="opacity-100"></span></p>
+            <p>Prod. Co: <span id="detail-prodco" class="opacity-100"></span></p>
         </div>
+    </div>
 
-        <!-- Video Player -->
-        <div class="detail-video-container mb-12 shadow-2xl">
-            <div class="aspect-video bg-black w-full relative">
-                <iframe id="detail-frame" class="w-full h-full" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-            </div>
-        </div>
+    <div class="fixed bottom-6 md:bottom-10 left-0 w-full px-6 md:px-10 flex justify-between items-center pointer-events-none">
+        <button class="pointer-events-auto hover:opacity-40 p-4"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8"><path d="M15 18l-6-6 6-6"></path></svg></button>
+        <button class="pointer-events-auto hover:opacity-40 p-4"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8"><path d="M9 18l6-6-6-6"></path></svg></button>
+    </div>
+</section>
 
-        <!-- Meta Information (Matching Reference Image) -->
-        <div class="text-center">
-            <h2 id="detail-title" class="text-2xl font-light tracking-[0.4em] uppercase mb-2">Kids Help Phone</h2>
-            <p id="detail-subtitle" class="text-sm font-light tracking-[0.3em] opacity-60 uppercase mb-8">Help Means Everything</p>
-            
-            <div class="flex flex-wrap justify-center items-center gap-x-12 gap-y-4 text-[10px] tracking-[0.3em] uppercase font-light opacity-80">
-                <div>Director: <span id="detail-director" class="opacity-100">Ernest Desumbila</span></div>
-                <div>Prod. Co: <span id="detail-prodco" class="opacity-100">SAUVAGE.TV</span></div>
-            </div>
-        </div>
+<script>
+    const btnDesktop = document.getElementById('menu-toggle-desktop');
+    const btnMobile = document.getElementById('menu-toggle-mobile');
+    const menuClose = document.getElementById('menu-close');
+    const mainMenu = document.getElementById('main-menu');
+    const viewHome = document.getElementById('view-home');
+    const viewDetail = document.getElementById('view-detail');
+    const detailFrame = document.getElementById('detail-frame');
 
-        <!-- Navigation Arrows -->
-        <div class="fixed bottom-10 left-0 w-full px-10 flex justify-between items-center pointer-events-none">
-            <button class="pointer-events-auto hover:opacity-40 transition-opacity p-4">
-                <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8">
-                    <path d="M15 18l-6-6 6-6"></path>
-                </svg>
-            </button>
-            <button class="pointer-events-auto hover:opacity-40 transition-opacity p-4">
-                <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8">
-                    <path d="M9 18l6-6-6-6"></path>
-                </svg>
-            </button>
-        </div>
-    </section>
+    [btnDesktop, btnMobile].forEach(btn => {
+        btn.addEventListener('click', () => mainMenu.classList.add('active'));
+    });
+    menuClose.addEventListener('click', () => mainMenu.classList.remove('active'));
 
-    <script>
-        const menuToggle = document.getElementById('menu-toggle');
-        const menuClose = document.getElementById('menu-close');
-        const mainMenu = document.getElementById('main-menu');
-        const viewHome = document.getElementById('view-home');
-        const viewDetail = document.getElementById('view-detail');
-        const headerLeft = document.getElementById('header-left');
-        const headerSubtitle = document.getElementById('header-subtitle');
+    function openDetail(title, subtitle, director, prodco, videoUrl) {
+        document.getElementById('detail-title').innerText = title;
+        document.getElementById('detail-subtitle').innerText = subtitle;
+        document.getElementById('detail-director').innerText = director;
+        document.getElementById('detail-prodco').innerText = prodco;
+        detailFrame.src = videoUrl;
+        viewHome.classList.add('view-hidden');
+        viewDetail.classList.remove('view-hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
-        const detailFrame = document.getElementById('detail-frame');
-        const detailTitle = document.getElementById('detail-title');
-        const detailSub = document.getElementById('detail-subtitle');
-        const detailDirector = document.getElementById('detail-director');
-        const detailProdCo = document.getElementById('detail-prodco');
-
-        // Menu Logic
-        menuToggle.addEventListener('click', () => {
-            mainMenu.classList.add('active');
-        });
-        menuClose.addEventListener('click', () => {
-            mainMenu.classList.remove('active');
-        });
-
-        // View Switching Logic
-        function openDetail(title, subtitle, director, prodco, videoUrl) {
-            // Update Content
-            detailTitle.innerText = title;
-            detailSub.innerText = subtitle;
-            detailDirector.innerText = director;
-            detailProdCo.innerText = prodco;
-            detailFrame.src = videoUrl;
-
-            // Switch Visibility
-            viewHome.classList.add('view-hidden');
-            viewDetail.classList.remove('view-hidden');
-            headerLeft.classList.add('opacity-0');
-            headerSubtitle.classList.add('opacity-0');
-            
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function showHome() {
-            viewDetail.classList.add('view-hidden');
-            viewHome.classList.remove('view-hidden');
-            headerLeft.classList.remove('opacity-0');
-            headerSubtitle.classList.remove('opacity-0');
-            detailFrame.src = ""; // Stop video
-        }
-
-        // ESC Key support
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                if (!mainMenu.classList.contains('active')) showHome();
-                mainMenu.classList.remove('active');
-            }
-        });
-    </script>
+    function showHome() {
+        viewDetail.classList.add('view-hidden');
+        viewHome.classList.remove('view-hidden');
+        detailFrame.src = "";
+    }
+</script>
 </body>
 </html>

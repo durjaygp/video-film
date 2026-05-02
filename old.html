@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SESLER | Production Designers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #111; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+
+        /* Navigation Sidebar Text Rotation */
+        .vertical-text {
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+        }
+
+        /* Hover Overlay Logic */
+        .portfolio-item .overlay {
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            background: rgba(0, 0, 0, 0.8);
+        }
+        .portfolio-item:hover .overlay {
+            opacity: 1;
+        }
+
+        /* Full Screen Menu Transition */
+        #main-menu {
+            transition: all 0.6s cubic-bezier(0.85, 0, 0.15, 1);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        #main-menu.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        /* Grid specific sizing to match reference */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media (max-width: 768px) {
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Modal Styles */
+        #video-modal {
+            display: none;
+            background: rgba(0, 0, 0, 0.98);
+        }
+
+        /* Menu Link Hover Effect */
+        .menu-link {
+            position: relative;
+            display: inline-block;
+        }
+        .menu-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -4px;
+            left: 50%;
+            background-color: white;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        .menu-link:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-black">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="fixed top-0 left-0 w-full z-40 p-6 flex justify-between items-start pointer-events-none">
+        <!-- Left Title -->
+        <div class="text-[10px] tracking-[0.4em] uppercase opacity-90 font-light pointer-events-auto text-white">Production Designers</div>
+        
+        <!-- Center Logo (Made high visibility white) -->
+        <div class="absolute left-1/2 -translate-x-1/2 top-6 text-center pointer-events-auto">
+            <h1 class="text-3xl tracking-[0.6em] font-light uppercase text-white mb-1">SESLER</h1>
+            <span class="text-xl tracking-[0.3em] font-extralight text-white opacity-90">Daria Savic</span>
+        </div>
+        
+        <!-- Right Menu Toggle -->
+        <button id="menu-toggle" class="group flex flex-col space-y-2 focus:outline-none cursor-pointer pointer-events-auto">
+            <div class="w-10 h-[1px] bg-white transition-all group-hover:w-7"></div>
+            <div class="w-10 h-[1px] bg-white"></div>
+            <div class="w-10 h-[1px] bg-white transition-all group-hover:w-7"></div>
+        </button>
+    </header>
+
+    <!-- LEFT SIDEBAR (VERTICAL TEXT) -->
+    <aside class="fixed left-0 top-0 h-full w-12 flex flex-col justify-center items-center z-30 space-y-12 mix-blend-difference">
+        <div class="vertical-text text-[9px] tracking-[0.5em] uppercase font-light opacity-60 hover:opacity-100 transition-opacity cursor-pointer">Commercial</div>
+        <div class="vertical-text text-[9px] tracking-[0.5em] uppercase font-light opacity-60 hover:opacity-100 transition-opacity cursor-pointer">Film/TV</div>
+        <div class="vertical-text text-[9px] tracking-[0.5em] uppercase font-light opacity-60 hover:opacity-100 transition-opacity cursor-pointer">CV</div>
+    </aside>
+
+    <!-- FULL SCREEN MENU OVERLAY (Improved Design) -->
+    <div id="main-menu" class="fixed inset-0 z-50 bg-[#0a0a0a] flex flex-col items-center justify-center">
+        <!-- Close Button -->
+        <button id="menu-close" class="absolute top-10 right-10 text-white hover:rotate-90 transition-transform duration-300">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.7">
+                <path d="M18 6L6 18M6 6l12 12"></path>
+            </svg>
+        </button>
+        
+        <!-- Logo in Menu -->
+        <div class="text-2xl tracking-[0.8em] font-light uppercase mb-20 opacity-80">SESLER</div>
+        
+        <!-- Navigation Links -->
+        <nav class="flex flex-col items-center space-y-10">
+            <a href="#" class="menu-link text-4xl md:text-5xl font-light tracking-wide transition-all duration-300">Cinematographers</a>
+            <a href="#" class="menu-link text-4xl md:text-5xl font-light tracking-wide transition-all duration-300">Production Designers</a>
+            <a href="#" class="menu-link text-4xl md:text-5xl font-light tracking-wide transition-all duration-300">Sesler II DPs</a>
+            <a href="#" class="menu-link text-4xl md:text-5xl font-light tracking-wide transition-all duration-300">News</a>
+            <a href="#" class="menu-link text-4xl md:text-5xl font-light tracking-wide transition-all duration-300">Contact</a>
+        </nav>
+
+        <!-- Socials Footer -->
+        <div class="mt-24 text-center">
+            <p class="text-[9px] uppercase tracking-[0.4em] opacity-30 mb-6">Follow Us</p>
+            <div class="flex space-x-12 text-[11px] tracking-[0.3em] font-light">
+                <a href="#" class="hover:opacity-50 transition-opacity">INSTAGRAM</a>
+                <a href="#" class="hover:opacity-50 transition-opacity">FACEBOOK</a>
+            </div>
+        </div>
+
+        <!-- Brand Icon -->
+        <div class="mt-16">
+            <div class="w-14 h-14 border border-white/20 rounded-full flex items-center justify-center font-serif text-3xl italic font-thin">S</div>
+        </div>
+    </div>
+
+    <!-- MAIN PORTFOLIO GRID -->
+    <main class="portfolio-grid w-full pt-32 md:pt-0">
+        <!-- Item 1 -->
+        <div class="portfolio-item relative group cursor-pointer overflow-hidden aspect-video bg-zinc-900 border-b border-r border-white/5" 
+             onclick="openVideo('School Eyes', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
+            <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=1200" alt="Work" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000">
+            <div class="overlay absolute inset-0 flex flex-col items-center justify-center text-center p-8">
+                <h3 class="text-2xl font-light tracking-[0.3em] uppercase mb-3">School Eyes</h3>
+                <div class="w-8 h-[1px] bg-white/40 mb-3"></div>
+                <p class="text-xs tracking-[0.2em] font-light opacity-70 uppercase">Commercial • Production Design</p>
+            </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="portfolio-item relative group cursor-pointer overflow-hidden aspect-video bg-zinc-900 border-b border-white/5" 
+             onclick="openVideo('Winter Red', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
+            <img src="https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?auto=format&fit=crop&q=80&w=1200" alt="Work" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000">
+            <div class="overlay absolute inset-0 flex flex-col items-center justify-center text-center p-8">
+                <h3 class="text-2xl font-light tracking-[0.3em] uppercase mb-3">Winter Red</h3>
+                <div class="w-8 h-[1px] bg-white/40 mb-3"></div>
+                <p class="text-xs tracking-[0.2em] font-light opacity-70 uppercase">Short Film • Scenic Design</p>
+            </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="portfolio-item relative group cursor-pointer overflow-hidden aspect-video bg-zinc-900 border-b border-r border-white/5" 
+             onclick="openVideo('Night Arena', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
+            <img src="https://images.unsplash.com/photo-1541872703-74c5e443d1f9?auto=format&fit=crop&q=80&w=1200" alt="Work" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000">
+            <div class="overlay absolute inset-0 flex flex-col items-center justify-center text-center p-8">
+                <h3 class="text-2xl font-light tracking-[0.3em] uppercase mb-3">Night Arena</h3>
+                <div class="w-8 h-[1px] bg-white/40 mb-3"></div>
+                <p class="text-xs tracking-[0.2em] font-light opacity-70 uppercase">Commercial • Lighting Concept</p>
+            </div>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="portfolio-item relative group cursor-pointer overflow-hidden aspect-video bg-zinc-900 border-b border-white/5" 
+             onclick="openVideo('Loft Studio', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
+            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200" alt="Work" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000">
+            <div class="overlay absolute inset-0 flex flex-col items-center justify-center text-center p-8">
+                <h3 class="text-2xl font-light tracking-[0.3em] uppercase mb-3">Loft Studio</h3>
+                <div class="w-8 h-[1px] bg-white/40 mb-3"></div>
+                <p class="text-xs tracking-[0.2em] font-light opacity-70 uppercase">Interiors • Set Design</p>
+            </div>
+        </div>
+
+        <!-- Item 5 -->
+        <div class="portfolio-item relative group cursor-pointer overflow-hidden aspect-video bg-zinc-900 border-r border-white/5" 
+             onclick="openVideo('Digital Space', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
+            <img src="https://images.unsplash.com/photo-1512446816042-444d641267d4?auto=format&fit=crop&q=80&w=1200" alt="Work" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000">
+            <div class="overlay absolute inset-0 flex flex-col items-center justify-center text-center p-8">
+                <h3 class="text-2xl font-light tracking-[0.3em] uppercase mb-3">Digital Space</h3>
+                <div class="w-8 h-[1px] bg-white/40 mb-3"></div>
+                <p class="text-xs tracking-[0.2em] font-light opacity-70 uppercase">Experimental • Production Design</p>
+            </div>
+        </div>
+
+        <!-- Item 6 -->
+        <div class="portfolio-item relative group cursor-pointer overflow-hidden aspect-video bg-zinc-900" 
+             onclick="openVideo('Moody Lounge', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
+            <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80&w=1200" alt="Work" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000">
+            <div class="overlay absolute inset-0 flex flex-col items-center justify-center text-center p-8">
+                <h3 class="text-2xl font-light tracking-[0.3em] uppercase mb-3">Moody Lounge</h3>
+                <div class="w-8 h-[1px] bg-white/40 mb-3"></div>
+                <p class="text-xs tracking-[0.2em] font-light opacity-70 uppercase">Series • Set Decoration</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- VIDEO MODAL -->
+    <div id="video-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-12">
+        <div class="absolute inset-0" onclick="closeVideo()"></div>
+        <div class="relative w-full max-w-6xl aspect-video bg-black shadow-2xl flex flex-col">
+            <div class="p-6 flex justify-between items-center border-b border-white/5">
+                <h2 id="modal-title" class="text-base font-light tracking-[0.4em] uppercase">Project Video</h2>
+                <button onclick="closeVideo()" class="text-[10px] uppercase tracking-[0.3em] hover:opacity-50">Close</button>
+            </div>
+            <div class="flex-grow">
+                <iframe id="video-frame" class="w-full h-full" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Menu Elements
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuClose = document.getElementById('menu-close');
+        const mainMenu = document.getElementById('main-menu');
+
+        // Modal Elements
+        const videoModal = document.getElementById('video-modal');
+        const videoFrame = document.getElementById('video-frame');
+        const modalTitle = document.getElementById('modal-title');
+
+        // Menu Handlers
+        menuToggle.addEventListener('click', () => {
+            mainMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        menuClose.addEventListener('click', () => {
+            mainMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Video Modal Handlers
+        function openVideo(title, url) {
+            modalTitle.innerText = title;
+            videoFrame.src = url;
+            videoModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeVideo() {
+            videoModal.style.display = 'none';
+            videoFrame.src = "";
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close menu on ESC key
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeVideo();
+                mainMenu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

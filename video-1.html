@@ -49,7 +49,7 @@
             pointer-events: auto;
         }
 
-        /* Desktop Hover Overlays */
+        /* Desktop Hover Overlays (Kept original behavior) */
         @media (min-width: 768px) {
             .portfolio-item .desktop-overlay {
                 opacity: 0;
@@ -68,6 +68,7 @@
             transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
+        /* Mobile specific S-logo style */
         .s-logo-circle {
             border: 1px solid rgba(255,255,255,0.3);
             border-radius: 50%;
@@ -95,7 +96,7 @@
         </button>
     </header>
 
-    <!-- MOBILE HEADER -->
+    <!-- MOBILE HEADER (Upgraded to match Image) -->
     <header class="fixed top-0 left-0 w-full z-40 bg-black px-4 py-4 md:hidden flex justify-between items-center border-b border-white/5">
         <div class="cursor-pointer" onclick="showHome()">
             <div class="s-logo-circle w-8 h-8 text-lg font-light">S</div>
@@ -109,7 +110,7 @@
         </button>
     </header>
 
-    <!-- MOBILE CATEGORY NAV -->
+    <!-- MOBILE CATEGORY NAV (Upgraded to match Image) -->
     <nav class="fixed top-[65px] left-0 w-full z-30 bg-black py-4 flex justify-center space-x-8 text-[10px] tracking-[0.3em] uppercase font-light border-b border-white/5 md:hidden">
         <a href="#" class="border-b border-white pb-1">Commercial</a>
         <a href="#" class="opacity-50">Film/TV</a>
@@ -129,16 +130,28 @@
             <a href="#" class="text-2xl md:text-5xl font-light tracking-wide hover:opacity-50 transition-opacity">News</a>
             <a href="#" class="text-2xl md:text-5xl font-light tracking-wide hover:opacity-50 transition-opacity">Contact</a>
         </nav>
+        <div class="mt-16 text-center">
+            <p class="text-[8px] uppercase tracking-[0.4em] opacity-30 mb-6">Follow Us</p>
+            <div class="flex space-x-10 text-[10px] tracking-[0.3em] font-light">
+                <a href="#">INSTAGRAM</a>
+                <a href="#">FACEBOOK</a>
+            </div>
+            <div class="mt-12 flex justify-center">
+                <div class="s-logo-circle w-14 h-14 text-2xl font-light border-white/20">S</div>
+            </div>
+        </div>
     </div>
 
     <!-- MAIN HOME VIEW -->
     <section id="view-home" class="view-section pt-[115px] md:pt-0">
+        <!-- Sidebar Navigation (Desktop Original) -->
         <aside class="fixed left-0 top-0 h-full w-12 hidden md:flex flex-col justify-center items-center z-30 space-y-12 mix-blend-difference">
             <div class="vertical-text text-[9px] tracking-[0.5em] uppercase font-light opacity-60 hover:opacity-100 cursor-pointer">Commercial</div>
             <div class="vertical-text text-[9px] tracking-[0.5em] uppercase font-light opacity-60 hover:opacity-100 cursor-pointer">Film/TV</div>
             <div class="vertical-text text-[9px] tracking-[0.5em] uppercase font-light opacity-60 hover:opacity-100 cursor-pointer">CV</div>
         </aside>
 
+        <!-- Grid (Responsive) -->
         <main class="grid grid-cols-1 md:grid-cols-2 w-full">
             <!-- Item 1 -->
             <div class="portfolio-item relative cursor-pointer overflow-hidden aspect-video bg-zinc-900" 
@@ -170,37 +183,100 @@
                 </div>
             </div>
 
-            <!-- Items 3 - 8 (Simplified for space, same structure as above) -->
-            <div class="portfolio-item relative cursor-pointer overflow-hidden aspect-video bg-zinc-900 border-t border-white/5" onclick="openDetail('Sporting Life', 'Winter Collection', 'Alex Smith', 'Circle Prod.', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
+            <!-- Item 3 -->
+            <div class="portfolio-item relative cursor-pointer overflow-hidden aspect-video bg-zinc-900 border-t border-white/5" 
+                 onclick="openDetail('Sporting Life', 'Winter Collection', 'Alex Smith', 'Circle Prod.', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
                 <img src="1.jpg" class="w-full h-full object-cover grayscale">
-                <div class="md:hidden absolute inset-0 flex flex-col items-center justify-center text-center p-4 bg-black/30"><h3 class="text-4xl font-light tracking-[0.1em] mb-1">Sporting Life</h3><p class="text-sm font-light tracking-[0.1em] opacity-90">Gear Up</p></div>
+                <div class="desktop-overlay hidden md:flex absolute inset-0 flex-col items-center justify-center text-center p-8">
+                    <h3 class="text-2xl font-light tracking-[0.3em] uppercase mb-3">Sporting Life</h3>
+                    <div class="w-8 h-[1px] bg-white/40 mb-3"></div>
+                    <p class="text-xs tracking-[0.2em] font-light opacity-70 uppercase">Commercial</p>
+                </div>
+                <div class="md:hidden absolute inset-0 flex flex-col items-center justify-center text-center p-4 bg-black/30">
+                    <h3 class="text-4xl font-light tracking-[0.1em] mb-1">Sporting Life</h3>
+                    <p class="text-sm font-light tracking-[0.1em] opacity-90">Gear Up</p>
+                </div>
             </div>
-            <div class="portfolio-item relative cursor-pointer overflow-hidden aspect-video bg-zinc-900 border-t md:border-l border-white/5" onclick="openDetail('Nike', 'The Grid', 'Sasha Lev', 'Imperial', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
-                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover grayscale">
-                <div class="md:hidden absolute inset-0 flex flex-col items-center justify-center text-center p-4 bg-black/30"><h3 class="text-4xl font-light tracking-[0.1em] mb-1">Nike</h3><p class="text-sm font-light tracking-[0.1em] opacity-90">The Grid</p></div>
-            </div>
-            <div class="portfolio-item relative cursor-pointer overflow-hidden aspect-video bg-zinc-900 border-t border-white/5" onclick="openDetail('IKEA', 'Your Space', 'Tom Ross', 'Smuggler', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
+
+            <!-- Item 4 -->
+            <div class="portfolio-item relative cursor-pointer overflow-hidden aspect-video bg-zinc-900 border-t md:border-l border-white/5" 
+                 onclick="openDetail('Nike', 'The Grid', 'Sasha Lev', 'Imperial', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
                 <img src="DS_Grammarly_Room.jpg" class="w-full h-full object-cover grayscale">
-                <div class="md:hidden absolute inset-0 flex flex-col items-center justify-center text-center p-4 bg-black/30"><h3 class="text-4xl font-light tracking-[0.1em] mb-1">IKEA</h3><p class="text-sm font-light tracking-[0.1em] opacity-90">Your Space</p></div>
+                <div class="desktop-overlay hidden md:flex absolute inset-0 flex-col items-center justify-center text-center p-8">
+                    <h3 class="text-2xl font-light tracking-[0.3em] uppercase mb-3">Nike</h3>
+                    <div class="w-8 h-[1px] bg-white/40 mb-3"></div>
+                    <p class="text-xs tracking-[0.2em] font-light opacity-70 uppercase">Commercial</p>
+                </div>
+                <div class="md:hidden absolute inset-0 flex flex-col items-center justify-center text-center p-4 bg-black/30">
+                    <h3 class="text-4xl font-light tracking-[0.1em] mb-1">Nike</h3>
+                    <p class="text-sm font-light tracking-[0.1em] opacity-90">The Grid</p>
+                </div>
             </div>
-            <div class="portfolio-item relative cursor-pointer overflow-hidden aspect-video bg-zinc-900 border-t md:border-l border-white/5" onclick="openDetail('Apple', 'Cinematic', 'Liza Min', 'Pulse', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
+
+            <!-- Item 5 -->
+            <div class="portfolio-item relative cursor-pointer overflow-hidden aspect-video bg-zinc-900 border-t border-white/5" 
+                 onclick="openDetail('IKEA', 'Your Space', 'Tom Ross', 'Smuggler', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
+                <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover grayscale">
+                <div class="desktop-overlay hidden md:flex absolute inset-0 flex-col items-center justify-center text-center p-8">
+                    <h3 class="text-2xl font-light tracking-[0.3em] uppercase mb-3">IKEA</h3>
+                    <div class="w-8 h-[1px] bg-white/40 mb-3"></div>
+                    <p class="text-xs tracking-[0.2em] font-light opacity-70 uppercase">Commercial</p>
+                </div>
+                <div class="md:hidden absolute inset-0 flex flex-col items-center justify-center text-center p-4 bg-black/30">
+                    <h3 class="text-4xl font-light tracking-[0.1em] mb-1">IKEA</h3>
+                    <p class="text-sm font-light tracking-[0.1em] opacity-90">Your Space</p>
+                </div>
+            </div>
+
+            <!-- Item 6 -->
+            <div class="portfolio-item relative cursor-pointer overflow-hidden aspect-video bg-zinc-900 border-t md:border-l border-white/5" 
+                 onclick="openDetail('Apple', 'Cinematic', 'Liza Min', 'Pulse', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
                 <img src="1.jpg" class="w-full h-full object-cover grayscale">
-                <div class="md:hidden absolute inset-0 flex flex-col items-center justify-center text-center p-4 bg-black/30"><h3 class="text-4xl font-light tracking-[0.1em] mb-1">Apple</h3><p class="text-sm font-light tracking-[0.1em] opacity-90">Cinematic</p></div>
+                <div class="desktop-overlay hidden md:flex absolute inset-0 flex-col items-center justify-center text-center p-8">
+                    <h3 class="text-2xl font-light tracking-[0.3em] uppercase mb-3">Apple</h3>
+                    <div class="w-8 h-[1px] bg-white/40 mb-3"></div>
+                    <p class="text-xs tracking-[0.2em] font-light opacity-70 uppercase">Commercial</p>
+                </div>
+                <div class="md:hidden absolute inset-0 flex flex-col items-center justify-center text-center p-4 bg-black/30">
+                    <h3 class="text-4xl font-light tracking-[0.1em] mb-1">Apple</h3>
+                    <p class="text-sm font-light tracking-[0.1em] opacity-90">Cinematic</p>
+                </div>
             </div>
-            <div class="portfolio-item relative cursor-pointer overflow-hidden aspect-video bg-zinc-900 border-t border-white/5" onclick="openDetail('Red Bull', 'Peak Performance', 'Mark Wu', 'Stink', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
+
+            <!-- Item 7 -->
+            <div class="portfolio-item relative cursor-pointer overflow-hidden aspect-video bg-zinc-900 border-t border-white/5" 
+                 onclick="openDetail('Red Bull', 'Peak Performance', 'Mark Wu', 'Stink', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
                 <img src="https://images.unsplash.com/photo-1533107862482-0e6974b06ec4?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover grayscale">
-                <div class="md:hidden absolute inset-0 flex flex-col items-center justify-center text-center p-4 bg-black/30"><h3 class="text-4xl font-light tracking-[0.1em] mb-1">Red Bull</h3><p class="text-sm font-light tracking-[0.1em] opacity-90">Peak Performance</p></div>
+                <div class="desktop-overlay hidden md:flex absolute inset-0 flex-col items-center justify-center text-center p-8">
+                    <h3 class="text-2xl font-light tracking-[0.3em] uppercase mb-3">Red Bull</h3>
+                    <div class="w-8 h-[1px] bg-white/40 mb-3"></div>
+                    <p class="text-xs tracking-[0.2em] font-light opacity-70 uppercase">Commercial</p>
+                </div>
+                <div class="md:hidden absolute inset-0 flex flex-col items-center justify-center text-center p-4 bg-black/30">
+                    <h3 class="text-4xl font-light tracking-[0.1em] mb-1">Red Bull</h3>
+                    <p class="text-sm font-light tracking-[0.1em] opacity-90">Peak Performance</p>
+                </div>
             </div>
-            <div class="portfolio-item relative cursor-pointer overflow-hidden aspect-video bg-zinc-900 border-t md:border-l border-white/5" onclick="openDetail('Mercedes', 'The Drive', 'Elena Rose', 'MJZ', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
+
+            <!-- Item 8 -->
+            <div class="portfolio-item relative cursor-pointer overflow-hidden aspect-video bg-zinc-900 border-t md:border-l border-white/5" 
+                 onclick="openDetail('Mercedes', 'The Drive', 'Elena Rose', 'MJZ', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
                 <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover grayscale">
-                <div class="md:hidden absolute inset-0 flex flex-col items-center justify-center text-center p-4 bg-black/30"><h3 class="text-4xl font-light tracking-[0.1em] mb-1">Mercedes</h3><p class="text-sm font-light tracking-[0.1em] opacity-90">The Drive</p></div>
+                <div class="desktop-overlay hidden md:flex absolute inset-0 flex-col items-center justify-center text-center p-8">
+                    <h3 class="text-2xl font-light tracking-[0.3em] uppercase mb-3">Mercedes</h3>
+                    <div class="w-8 h-[1px] bg-white/40 mb-3"></div>
+                    <p class="text-xs tracking-[0.2em] font-light opacity-70 uppercase">Commercial</p>
+                </div>
+                <div class="md:hidden absolute inset-0 flex flex-col items-center justify-center text-center p-4 bg-black/30">
+                    <h3 class="text-4xl font-light tracking-[0.1em] mb-1">Mercedes</h3>
+                    <p class="text-sm font-light tracking-[0.1em] opacity-90">The Drive</p>
+                </div>
             </div>
         </main>
     </section>
 
     <!-- VIDEO DETAIL VIEW -->
-    <!-- Fixed: Added Padding-Top to clear sticky headers -->
-    <section id="view-detail" class="view-section view-hidden flex flex-col items-center justify-start bg-black px-4 md:px-6 pt-[140px] md:pt-[100px]">
+    <section id="view-detail" class="view-section view-hidden flex flex-col items-center justify-center bg-black px-4 md:px-6">
         <div class="fixed top-0 left-0 w-full p-4 md:p-8 flex justify-between items-center z-50 pointer-events-none">
             <button onclick="showHome()" class="pointer-events-auto flex items-center space-x-3 text-white hover:opacity-50">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M18 6L6 18M6 6l12 12"></path></svg>
@@ -209,19 +285,18 @@
             <div class="hidden md:block absolute left-1/2 -translate-x-1/2 text-xs tracking-[0.8em] font-light uppercase text-white">SESLER</div>
         </div>
 
-        <!-- Center Container -->
-        <div class="w-full max-w-5xl flex flex-col items-center">
-            <div class="w-full aspect-video bg-black shadow-2xl mb-8 md:mb-12">
+        <div class="w-full max-w-5xl mb-8 md:mb-12">
+            <div class="aspect-video bg-black w-full">
                 <iframe id="detail-frame" class="w-full h-full" src="" frameborder="0" allowfullscreen></iframe>
             </div>
+        </div>
 
-            <div class="text-center w-full pb-20">
-                <h2 id="detail-title" class="text-2xl md:text-3xl font-light tracking-[0.3em] uppercase mb-2"></h2>
-                <p id="detail-subtitle" class="text-xs md:text-base font-light tracking-[0.2em] opacity-60 uppercase mb-8 md:mb-12"></p>
-                <div class="flex flex-col md:flex-row justify-center items-center gap-y-2 md:gap-x-16 text-[9px] md:text-[11px] tracking-[0.3em] uppercase font-light opacity-70">
-                    <p>Director: <span id="detail-director" class="opacity-100"></span></p>
-                    <p>Prod. Co: <span id="detail-prodco" class="opacity-100"></span></p>
-                </div>
+        <div class="text-center">
+            <h2 id="detail-title" class="text-2xl md:text-3xl font-light tracking-[0.3em] uppercase mb-2"></h2>
+            <p id="detail-subtitle" class="text-xs md:text-base font-light tracking-[0.2em] opacity-60 uppercase mb-8 md:mb-12"></p>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-y-2 md:gap-x-16 text-[9px] md:text-[11px] tracking-[0.3em] uppercase font-light opacity-70">
+                <p>Director: <span id="detail-director" class="opacity-100"></span></p>
+                <p>Prod. Co: <span id="detail-prodco" class="opacity-100"></span></p>
             </div>
         </div>
 
@@ -251,19 +326,15 @@
             document.getElementById('detail-director').innerText = director;
             document.getElementById('detail-prodco').innerText = prodco;
             detailFrame.src = videoUrl;
-            
             viewHome.classList.add('view-hidden');
             viewDetail.classList.remove('view-hidden');
-            
-            // Fixed: Scroll to top of the detail view
-            window.scrollTo({ top: 0, behavior: 'auto' });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function showHome() {
             viewDetail.classList.add('view-hidden');
             viewHome.classList.remove('view-hidden');
             detailFrame.src = "";
-            window.scrollTo({ top: 0, behavior: 'auto' });
         }
     </script>
 </body>
