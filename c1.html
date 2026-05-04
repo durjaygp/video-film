@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CKEditor 5 v43 Full GPL - Updated</title>
+    <!-- CKEditor 5 v43 CSS -->
+    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.0.0/ckeditor5.css">
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; margin: 20px; background: #f0f2f5; }
+        .editor-container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        /* Height adjustment for the editor */
+        .ck-editor__editable { min-height: 550px; }
+    </style>
+</head>
+<body>
+
+<div class="editor-container">
+    <h2 style="margin-top: 0;">CKEditor 5 v43 Full GPL Implementation</h2>
+    <div id="editor">
+        <p>This editor is now fully configured with <b>Video Support</b>, <b>Source Editing</b>, and <b>Advanced Tables</b>.</p>
+    </div>
+</div>
+
+<!-- CKEditor 5 v43 UMD Bundle -->
+<script src="https://cdn.ckeditor.com/ckeditor5/43.0.0/ckeditor5.umd.js"></script>
+
+<script>
+    const {
+        ClassicEditor, Essentials, Bold, Italic, Underline, Strikethrough, 
+        Subscript, Superscript, Code, Link, List, MediaEmbed, Table, 
+        TableToolbar, TableProperties, TableCellProperties, TableCaption, TableColumnResize,
+        BlockQuote, Heading, Font, Alignment, Highlight, HorizontalLine, 
+        SpecialCharacters, SpecialCharactersEssentials, CodeBlock, 
+        SourceEditing, GeneralHtmlSupport, RemoveFormat, Undo, 
+        Image, ImageToolbar, ImageCaption, ImageStyle, ImageUpload, ImageResize,
+        LinkImage, Autoformat, Indent, IndentBlock, BlockToolbar
+    } = CKEDITOR;
+
+    ClassicEditor
+        .create(document.querySelector('#editor'), {
+            // REQUIRED for v43+: Specify the GPL license
+            licenseKey: 'GPL', 
+
+            plugins: [
+                Essentials, Undo, Bold, Italic, Underline, Strikethrough, 
+                Subscript, Superscript, Code, RemoveFormat, Link, List, 
+                MediaEmbed, Table, TableToolbar, TableProperties, 
+                TableCellProperties, TableCaption, TableColumnResize,
+                BlockQuote, Heading, Font, Alignment, Highlight, 
+                HorizontalLine, SpecialCharacters, SpecialCharactersEssentials, 
+                CodeBlock, SourceEditing, GeneralHtmlSupport, 
+                Image, ImageToolbar, ImageCaption, ImageStyle, ImageUpload, 
+                ImageResize, LinkImage, Autoformat, Indent, IndentBlock
+            ],
+
+            toolbar: {
+                items: [
+                    'sourceEditing', '|', 'undo', 'redo', '|',
+                    'heading', '|',
+                    'bold', 'italic', 'underline', 'strikethrough', 'code', 'removeFormat', '|',
+                    'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'highlight', '|',
+                    'alignment', 'bulletedList', 'numberedList', 'outdent', 'indent', '|',
+                    'link', 'uploadImage', 'mediaEmbed', 'insertTable', 'blockQuote', 'codeBlock', '|',
+                    'horizontalLine', 'specialCharacters', 'subscript', 'superscript'
+                ],
+                shouldNotGroupWhenFull: true 
+            },
+
+            // Video / Media Support
+            mediaEmbed: {
+                previewsInData: true
+            },
+
+            // Image Configuration
+            image: {
+                toolbar: [
+                    'imageStyle:inline', 'imageStyle:block', 'imageStyle:side', '|',
+                    'toggleImageCaption', 'imageTextAlternative', '|', 'linkImage'
+                ]
+            },
+
+            // Table Configuration (Full Properties)
+            table: {
+                contentToolbar: [
+                    'tableColumn', 'tableRow', 'mergeTableCells', 
+                    'tableProperties', 'tableCellProperties', 'toggleTableCaption'
+                ]
+            },
+
+            // General HTML Support (Allows custom attributes/classes)
+            htmlSupport: {
+                allow: [{ name: /.*/, attributes: true, classes: true, styles: true }]
+            }
+        })
+        .then(editor => { 
+            console.log('CKEditor 5 v43 (GPL) is ready with Full features.'); 
+            window.editor = editor;
+        })
+        .catch(error => { 
+            console.error('Initialization failed:', error); 
+        });
+</script>
+</body>
+</html>
