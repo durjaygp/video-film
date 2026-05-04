@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced TinyMCE</title>
+
+    <!-- TinyMCE CDN -->
+    <script src="tinymce.min.js" referrerpolicy="origin"></script>
+</head>
+<body>
+
+<h2>Advanced TinyMCE Editor</h2>
+
+<form method="POST">
+    <textarea id="open-source-plugins" name="content"></textarea>
+</form>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const useDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        tinymce.init({
+            selector: '#open-source-plugins',
+            license_key: 'gpl',
+            plugins: [
+                'advlist','anchor','autolink','autoresize','autosave','charmap','code',
+                'codesample','directionality','emoticons','fullscreen','help','image',
+                'importcss','insertdatetime','link','lists','media',
+                'nonbreaking','pagebreak','preview','quickbars','save','searchreplace',
+                'table','visualblocks','visualchars','wordcount'
+            ],
+            menubar: 'file edit view insert format tools table help',
+            toolbar: "undo redo | blocks | bold italic underline | alignleft aligncenter alignright | bullist numlist | link image | table media | code fullscreen preview",
+            height: 600,
+            autosave_interval: '30s',
+            toolbar_mode: 'sliding',
+            contextmenu: 'link image table',
+            skin: useDarkMode ? 'oxide-dark' : 'oxide',
+            content_css: useDarkMode ? 'dark' : 'default'
+        });
+
+    });
+</script>
+
+</body>
+</html>
